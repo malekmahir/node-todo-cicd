@@ -11,7 +11,7 @@ pipeline {
         }
         stage("build and test"){
             steps{
-                sh "docker build -t node-app-test-new ."
+                sh "docker build -t node-app-todo ."
                 echo 'code build bhi ho gaya'
             }
         }
