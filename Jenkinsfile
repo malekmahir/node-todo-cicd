@@ -1,6 +1,10 @@
 pipeline {
     agent { label 'dev-server' }
     
+    environment {
+        DOCKER_BUILDKIT = '1' // Enable BuildKit
+    }
+
     stages {
         stage('Clone Code') {
             steps {
@@ -10,11 +14,13 @@ pipeline {
         }
         stage('Build and Test') {
             steps {
-                // List files and show Dockerfile content for debugging purposes
-                sh 'ls -la'
-                sh 'cat Dockerfile'
-                // Build the Docker image
-                sh 'docker build -t node-app-todo .'
+                script {
+                    // List files and show Dockerfile content for debugging purposes
+                    sh 'ls -la'
+                    sh 'cat Dockerfile'
+                    // Build the Docker image
+                    sh 'docker build -t node-app-todo .'
+                }
                 echo 'Code building done'
             }
         }
